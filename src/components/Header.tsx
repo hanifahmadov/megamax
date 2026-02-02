@@ -3,6 +3,7 @@ const Header = () => {
 		<div
 			className='3by3_header h-full w-full flex gap-10
                             flex-col justify-center items-center
+							select-none 
                             '
 		>
 			{/* Headline Tic Tac Toe */}

@@ -9,6 +9,7 @@ import { boardDefault } from "./helpers/boardStates";
 // helpers
 import { makePvP_move } from "./helpers/makeMove";
 import { makeAi_move } from "./helpers/makeMove";
+import { checkWinner } from "./helpers/checkWinner";
 
 // css imports
 import "./App.css";
@@ -25,12 +26,12 @@ function App() {
 	//board
 	const [board, setBoard] = useRecoilState(boardDefault);
 	// board 3by3 and 5by5
-	const [board33, setBoard33] = useState(true);
-	const [board55, setBoard55] = useState(false);
+	const [board33, setBoard33] = useState<boolean>(true);
+	const [board55, setBoard55] = useState<boolean>(false);
 
-	const [winner, setWinner] = useState(false);
+	const [winner, setWinner] = useState<boolean>(false);
 	const [winIndex, setWinIndex] = useState<number[]>([]);
-	const [gameStarted, setGameStarted] = useState(false);
+	const [gameStarted, setGameStarted] = useState<boolean>(false);
 
 	const [resetBtn, setResetBtn] = useState(true);
 	const [pvpBtn, setPvpBtn] = useState(true);
@@ -73,6 +74,26 @@ function App() {
 		if (aiBtn) makeAi_move(board, setBoard, turn, setTurn, cellId);
 	};
 
+	// Analyze the board on every move
+	useEffect(() => {
+		// stop all actions if there is a winner
+		if (winner) return;
+
+		// if board is full
+		const isFull = !board.some((val) => val == null);
+
+		// check if there is a win position
+		const checker = checkWinner(board, isFull);
+
+		// If there is a win position
+		if (checker.length) {
+			// set winner and stop all actions on the board
+			setWinner(true);
+
+			// setWinIndex(checker);
+		}
+	}, [board]);
+
 	return (
 		<div className='flex flex-col justify-center items-center gap-15'>
 			<div className='wrapper-top flex flex-col gap-5 w-full'>
@@ -85,7 +106,6 @@ function App() {
 					board33={board33}
 					board55={board55}
 					gameStarted={gameStarted}
-
 					setAiBtn={setAiBtn}
 					setPvpBtn={setPvpBtn}
 					setBoard33={setBoard33}
@@ -93,7 +113,11 @@ function App() {
 				/>
 			</div>
 			<div>
-				<Board_3by3 board={board} winner={winner} winIndex={winIndex} handleCellClick={handleCellClick} />{" "}
+				{board33 && (
+					<Board_3by3 board={board} winner={winner} winIndex={winIndex} handleCellClick={handleCellClick} />
+				)}
+
+				{board55 && <div>Hello World</div>}
 			</div>
 		</div>
 	);
