@@ -12,20 +12,23 @@ import { makeAi_move } from "./helpers/makeMove";
 
 // css imports
 import "./App.css";
-import Board_3by3 from "./components/Board_3by3";
 
 // comps
+import Board_3by3 from "./components/Board_3by3";
 import Settings from "./components/Settings";
 import Header from "./components/Header";
 
 function App() {
-	// Board resetter
+	// Board States
+	// board reset
 	const resetBoard = useResetRecoilState(boardDefault);
-
-	// States
+	//board
 	const [board, setBoard] = useRecoilState(boardDefault);
+	// board 3by3 and 5by5
+	const [board33, setBoard33] = useState(true);
+	const [board55, setBoard55] = useState(false);
 
-	const [winner, setWinner] = useState(null);
+	const [winner, setWinner] = useState(false);
 	const [winIndex, setWinIndex] = useState<number[]>([]);
 	const [gameStarted, setGameStarted] = useState(false);
 
@@ -34,8 +37,20 @@ function App() {
 	const [aiBtn, setAiBtn] = useState(false);
 
 	const [turn, setTurn] = useState(1);
-	// const [moves, setMoves] = useState(0);
-	// const [analyzing, setAnalyzing] = useState(false);
+	const [moves, setMoves] = useState(0);
+	const [analyzing, setAnalyzing] = useState(false);
+
+	// handle Reset click
+	const handleResetClick = () => {
+		// Reset all to default
+		resetBoard();
+		setTurn(1);
+		setWinner(false);
+		setWinIndex([]);
+		setGameStarted(false);
+		setMoves(0);
+		setAnalyzing(false);
+	};
 
 	const handleCellClick = (e: any) => {
 		// stop if winner is true
@@ -58,19 +73,24 @@ function App() {
 		if (aiBtn) makeAi_move(board, setBoard, turn, setTurn, cellId);
 	};
 
-	{
-		/* Header */
-	}
-
-	{
-		/* Settings */
-	}
-
 	return (
 		<div className='flex flex-col justify-center items-center gap-15'>
 			<div className='wrapper-top flex flex-col gap-5 w-full'>
 				<Header />
-				<Settings />
+				<Settings
+					handleResetClick={handleResetClick}
+					aiBtn={aiBtn}
+					pvpBtn={pvpBtn}
+					winner={winner}
+					board33={board33}
+					board55={board55}
+					gameStarted={gameStarted}
+
+					setAiBtn={setAiBtn}
+					setPvpBtn={setPvpBtn}
+					setBoard33={setBoard33}
+					setBoard55={setBoard55}
+				/>
 			</div>
 			<div>
 				<Board_3by3 board={board} winner={winner} winIndex={winIndex} handleCellClick={handleCellClick} />{" "}

@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { produce } from "immer";
-
-
+import { motion, scale } from "framer-motion";
 
 type Props = {
 	board: (string | null)[];
-	winner: string | null;
+	winner: boolean | null;
 	winIndex: number[];
 	handleCellClick: (e: any) => void;
 };
@@ -15,10 +14,11 @@ type Props = {
 // Board 3 x 3
 const Board_3by3 = ({ board, winner, winIndex, handleCellClick }: Props) => {
 	return (
-		<div className='3by3_board grid grid-cols-3 gap-0 rounded-2xl overflow-hidden border-3 border-black/3'>
+		<div className='3by3_board grid grid-cols-3 gap-0 rounded-2xl overflow-hidden border-3 border-black/3 select-none'>
 			{board.map((val, i) => {
 				return (
-					<div
+					<motion.div
+						whileTap={{ scale: 1.02 }}
 						key={i}
 						id={String(i)}
 						onClick={handleCellClick}
@@ -38,7 +38,7 @@ const Board_3by3 = ({ board, winner, winIndex, handleCellClick }: Props) => {
 							   	`}
 					>
 						{val}
-					</div>
+					</motion.div>
 				);
 			})}
 		</div>
