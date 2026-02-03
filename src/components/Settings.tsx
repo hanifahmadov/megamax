@@ -98,8 +98,8 @@ const Settings = ({
                             px-4 py-2 w-full text-center
                             rounded-4xl cursor-pointer
   							transition-colors duration-100 ease-in-out
-							${!board33 && "hover:bg-green-200"}
-							${board33 && "bg-green-400"}
+							${!board33 && "hover:bg-green-200 pointer-events-auto"}
+							${board33 && "bg-green-400 pointer-events-none"}
 
                             `}
 				>
@@ -112,8 +112,8 @@ const Settings = ({
                             px-4 py-2 w-full text-center
                             rounded-4xl cursor-pointer
 							transition-colors duration-100 ease-in-out
-							${!board55 && "hover:bg-green-200"}
-							${board55 && "bg-green-400"}
+							${!board55 && "hover:bg-green-200 pointer-events-auto"}
+							${board55 && "bg-green-400 pointer-events-none"}
 							
                             `}
 				>
@@ -130,8 +130,8 @@ const Settings = ({
                             px-4 py-2 w-full text-center
                             rounded-4xl cursor-pointer
 							transition-colors duration-100 ease-in-out
-							${!pvpBtn && "hover:bg-green-200"}
-							${pvpBtn && "bg-green-400"}
+							${!pvpBtn && "hover:bg-green-200 pointer-events-auto"}
+							${pvpBtn && "bg-green-400 pointer-events-none"}
 
                             `}
 				>
@@ -144,8 +144,8 @@ const Settings = ({
                             px-4 py-2 w-full text-center
                             rounded-4xl cursor-pointer
 							transition-colors duration-100 ease-in-out
-							${!aiBtn && "hover:bg-green-200"}
-							${aiBtn && "bg-green-400"}
+							${!aiBtn && "hover:bg-green-200 pointer-events-auto"}
+							${aiBtn && "bg-green-400 pointer-events-none"}
 
                             `}
 				>

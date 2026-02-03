@@ -5,22 +5,30 @@ import { winPositions } from "./boardStates";
 export const checkWinner = (board, boardIsFull) => {
 	let res = [];
 
-	// get every win position array, position
+	// check every win position array
 	for (let position of winPositions) {
-		// get every index of the board and check the board
-		// break & move to next index if board[i] is not satisfying
-		const win = position.every((i) => board[i] != null && board[i] === board[position[0]]);
+		// get first position
+		const first = board[position[0]];
+
+		// skip this position if the first value is null
+		if (first == null) continue;
+
+		let win = true;
+
+		// check if all values in this position match the first one
+		for (let i of position) {
+			if (board[i] !== first) {
+				win = false;
+				break;
+			}
+		}
 
 		if (win) {
-			// if board is full, it means there can be 2 possible positions:
-			// a. nobody won
-			// b. there is a win but 2 ways, diagonals
 			if (boardIsFull) {
-				// then store 2 win positions in [ ...a, ...b ]
+				// store multiple win positions if board is full
 				res = res.concat(position);
 			} else {
-				// if board is not full then
-				// return one possible win position
+				// return one win position if board is not full
 				return position;
 			}
 		}
