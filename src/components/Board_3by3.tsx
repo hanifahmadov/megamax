@@ -40,7 +40,7 @@ const Board_3by3 = ({ board, winner, winIndex, handleCellClick }: Props) => {
 									${(i == 6 || i == 7 || i == 8) && "border-b-0"}
 
 									${winner ? "pointer-events-none hover:bg-none" : "cursor-pointer hover:bg-blue-100"}
-									${winner && winIndex.includes(i) && "bg-blue-100"}
+									${winner && winIndex.includes(i) && "bg-blue-300"}
 
 							   	`}
 					>

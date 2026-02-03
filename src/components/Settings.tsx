@@ -82,7 +82,7 @@ const Settings = ({
 				className={`border-2 border-black/20 
                             px-4 py-2 w-full text-center
                             rounded-4xl cursor-pointer
-						  hover:bg-green-200
+						  hover:bg-blue-100
 
                             `}
 			>

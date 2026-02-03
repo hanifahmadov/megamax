@@ -87,10 +87,12 @@ function App() {
 
 		// If there is a win position
 		if (checker.length) {
+			// get win indexes before setting the winner
+			// those index will get sent to boards to set the win cells bg-colors
+			setWinIndex(checker);
+
 			// set winner and stop all actions on the board
 			setWinner(true);
-
-			// setWinIndex(checker);
 		}
 	}, [board]);
 
